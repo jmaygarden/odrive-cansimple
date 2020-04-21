@@ -1,0 +1,19 @@
+[package]
+authors = ["Judge Maygarden <judge@jmaygarden.com>"]
+description = "CANSimple master library for ODrive motor controllers."
+edition = "2018"
+license = "MIT"
+name = "odrive-cansimple"
+repository = "https://github.com/jmaygarden/odrive-cansimple"
+version = "0.1.0"
+
+[dependencies]
+bitflags = "1.2.1"      # A macro to generate structures which behave like bitflags.
+byteorder = "1.3.4"     # Library for reading/writing numbers in big-endian and little-endian.
+num = "0.2.1"           # A collection of numeric types and traits for Rust, including bigint, complex, rational, ran…
+num-derive = "0.3.0"    # Numeric syntax extensions
+num-traits = "0.2.11"   # Numeric traits for generic mathematics
+socketcan = "1.7.0"     # Linux SocketCAN library. Send and receive CAN frames via CAN bus on Linux.
+
+[features]
+vcan_tests = []
