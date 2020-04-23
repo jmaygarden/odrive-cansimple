@@ -211,7 +211,7 @@ impl Connection {
     /// Set the current setpoint to the given value in amps with 0.01 A granularity.
     pub fn set_input_current(&self, id: AxisId, value: f32) -> std::io::Result<()> {
         let frame = FrameBuilder::new(id as u32, Command::SetInputCurrent)
-                        .arg0((100. * value + 0.5) as u32).finalize().unwrap();
+                        .arg0((100. * value + 0.5) as i32 as u32).finalize().unwrap();
 
         self.write(&frame)
     }
