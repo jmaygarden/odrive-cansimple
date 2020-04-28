@@ -1,12 +1,16 @@
-use crate::enumerations::{ AxisId, Command };
-use socketcan::{ CANFrame, ConstructionError };
+use crate::enumerations::{AxisId, Command};
+use socketcan::{CANFrame, ConstructionError};
 
 pub fn decode_id(frame: CANFrame) -> (AxisId, Command) {
     let id = frame.id();
     let node = ((id >> 5) & 0x3F) as AxisId;
     let command = num::FromPrimitive::from_u32(id & 0x1F);
 
-    (node, command.unwrap())
+    if let Some(command) = command {
+        (node, command)
+    } else {
+        (node, Command::Undefined)
+    }
 }
 
 pub struct FrameBuilder {
@@ -55,4 +59,3 @@ impl FrameBuilder {
         CANFrame::new(self.id, &data, self.rtr, false)
     }
 }
-

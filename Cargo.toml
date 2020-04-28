@@ -5,7 +5,7 @@ edition = "2018"
 license = "MIT"
 name = "odrive-cansimple"
 repository = "https://github.com/jmaygarden/odrive-cansimple"
-version = "0.1.1"
+version = "0.2.0"
 
 [dependencies]
 bitflags = "1.2.1"      # A macro to generate structures which behave like bitflags.
