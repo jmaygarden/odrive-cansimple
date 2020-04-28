@@ -36,12 +36,12 @@ impl CustomSignal {
         ((self.frame.id() >> 5) & 0x3F) as AxisId
     }
 
-    pub fn command(&self) -> Option<Command> {
-        num::FromPrimitive::from_u32(self.frame.id() & 0x1F)
+    pub fn command(&self) -> u32 {
+        self.frame.id() & 0x1F
     }
 
     pub fn data(&self) -> &[u8] {
-        return self.frame.data();
+        self.frame.data()
     }
 }
 
