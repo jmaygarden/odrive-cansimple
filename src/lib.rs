@@ -208,14 +208,34 @@ impl Connection {
                         })
                     }
 
-                    _ => Ok(Signal::Unknown(CustomSignal { frame: frame })),
+                    /// TODO
+                    Command::Undefined
+                    | Command::OdriveEstop
+                    | Command::GetSensorlessEstimates
+                    | Command::GetSensorlessError
+                    | Command::SetAxisNodeId
+                    | Command::SetAxisRequestedState
+                    | Command::SetAxisStartupConfig
+                    | Command::SetControllerModes
+                    | Command::SetInputPos
+                    | Command::SetInputVel
+                    | Command::SetInputCurrent
+                    | Command::SetVelLimit
+                    | Command::StartAnticogging
+                    | Command::SetTrajVelLimit
+                    | Command::SetTrajAccelLimits
+                    | Command::SetTrajAPerCss
+                    | Command::ResetOdrive
+                    | Command::ClearErrors => Ok(Signal::Unknown(CustomSignal { frame: frame })),
+
+                    Command::Custom(_) => Ok(Signal::Unknown(CustomSignal { frame: frame })),
                 }
             }
             Err(error) => Err(error),
         }
     }
 
-    fn write(&self, frame: &CANFrame) -> std::io::Result<()> {
+    pub fn write(&self, frame: &CANFrame) -> std::io::Result<()> {
         self.socket.write_frame(&frame)
     }
 

@@ -4,13 +4,9 @@ use socketcan::{CANFrame, ConstructionError};
 pub fn decode_id(frame: CANFrame) -> (AxisId, Command) {
     let id = frame.id();
     let node = ((id >> 5) & 0x3F) as AxisId;
-    let command = num::FromPrimitive::from_u32(id & 0x1F);
+    let command: Command = (id & 0x1F).into();
 
-    if let Some(command) = command {
-        (node, command)
-    } else {
-        (node, Command::Undefined)
-    }
+    (node, command)
 }
 
 pub struct FrameBuilder {
@@ -23,7 +19,7 @@ pub struct FrameBuilder {
 impl FrameBuilder {
     pub fn new(node: u32, command: Command) -> FrameBuilder {
         FrameBuilder {
-            id: ((node & 0x3F) << 5) | (command as u32 & 0x1F),
+            id: ((node & 0x3F) << 5) | (u32::from(command) & 0x1F),
             arg0: None,
             arg1: None,
             rtr: false,
