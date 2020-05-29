@@ -5,7 +5,7 @@ pub use error::{AxisError, EncoderError, MotorError};
 pub type AxisId = u16;
 
 #[repr(u32)]
-#[derive(Debug, PartialEq, Eq, FromPrimitive)]
+#[derive(Debug, PartialEq, Eq, FromPrimitive, Copy, Clone)]
 pub enum AxisState {
     Undefined,
     Idle,
@@ -22,7 +22,7 @@ pub enum AxisState {
 }
 
 #[repr(u32)]
-#[derive(Debug)]
+#[derive(Debug, Copy, Clone)]
 pub enum Command {
     Undefined,
     OdriveHeartbeat,

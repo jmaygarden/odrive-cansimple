@@ -26,7 +26,7 @@ use socketcan::{CANFrame, CANSocket, CANSocketOpenError};
 mod tests;
 
 /// Custom signal that may be received from an ODrive.
-#[derive(Debug)]
+#[derive(Debug, Copy, Clone)]
 pub struct CustomSignal {
     frame: CANFrame,
 }
@@ -46,7 +46,7 @@ impl CustomSignal {
 }
 
 /// Signals that may be received from an ODrive.
-#[derive(Debug)]
+#[derive(Debug, Copy, Clone)]
 pub enum Signal {
     EncoderCount {
         id: AxisId,
