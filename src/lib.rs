@@ -101,12 +101,14 @@ impl Connection {
     /// ```
     pub fn new(ifname: &str) -> Result<Connection, CANSocketOpenError> {
         match CANSocket::open(ifname) {
-            Ok(socket) => match socket.set_nonblocking(false) {
-                Ok(()) => Ok(Connection { socket: socket }),
-                Err(error) => Err(CANSocketOpenError::IOError(error)),
-            },
+            Ok(socket) => Ok(Connection { socket: socket }),
             Err(error) => Err(error),
         }
+    }
+
+    /// Set the connection to blocking or non-blocking mode.
+    pub fn set_nonblocking(&self, nonblocking: bool) -> std::io::Result<()> {
+        self.socket.set_nonblocking(nonblocking)
     }
 
     /// Blocks until a a CAN frame is read from the bus.

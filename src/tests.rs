@@ -1,6 +1,4 @@
-use crate::{
-    Connection
-};
+use crate::Connection;
 
 #[test]
 fn test_nonexistant_device() {
@@ -20,7 +18,8 @@ mod vcan_tests {
         let frame = FrameBuilder::new(0, Command::OdriveHeartbeat)
             .arg0(AxisError::ERROR_NONE.bits())
             .arg1(AxisState::Idle as u32)
-            .finalize().unwrap();
+            .finalize()
+            .unwrap();
 
         let s0 = Connection::new("vcan0").unwrap();
         let s1 = Connection::new("vcan0").unwrap();
@@ -28,11 +27,10 @@ mod vcan_tests {
         s0.write(&frame).unwrap();
 
         assert!(match s1.read().unwrap() {
-            Signal::Heartbeat{ id, error, state } => {
+            Signal::Heartbeat { id, error, state } => {
                 id == 0 && error == AxisError::ERROR_NONE && state == AxisState::Idle
-            },
+            }
             _ => false,
         });
     }
-
 }
